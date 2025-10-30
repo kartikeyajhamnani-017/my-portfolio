@@ -1,0 +1,77 @@
+/* 1. NEW: The constant pulse animation */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 var(--button-pulse-color);
+  }
+  70% {
+    /* Pulse 15px out, and fade to transparent */
+    box-shadow: 0 0 0 15px transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+/* 2. Base Button Styles (Modified) */
+.action-button {
+  /* Ripple setup (no change) */
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+
+  /* --- SHAPE CHANGES --- */
+  width: 130px; /* Set a fixed width */
+  height: 130px; /* Set a fixed height */
+  border-radius: 50%; /* Makes it a circle */
+  padding: 0; /* Remove padding */
+
+  /* --- FLEXBOX TO CENTER TEXT --- */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  
+  /* --- PULSE ANIMATION --- */
+  animation: pulse 2s infinite;
+
+  /* Colors (no change) */
+  background-color: var(--button-primary-bg);
+  color: var(--button-primary-text);
+
+  /* General Appearance (no change) */
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+/* 3. Hover Effect (no change) */
+.action-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  /* Stop the pulse on hover for a cleaner look */
+  animation-play-state: paused;
+}
+
+/* 4. Click Ripple (no change) */
+.action-button::after {
+  content: '';
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 1;
+}
+
+.action-button:active::after {
+  transform: translate(-50%, -50%) scale(3);
+  opacity: 0;
+  transition: transform 0.5s, opacity 0.5s;
+}

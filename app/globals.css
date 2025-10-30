@@ -1,51 +1,121 @@
-/* Reset default browser styles */
+/* 1. Basic Resets and Global Styles */
+html {
+  /* This is the magic line for smooth scrolling */
+  scroll-behavior: smooth;
+
+  /* This tells the browser to stop scrolling 80px
+     before the ID we're linking to.
+     This is our offset for your fixed navbar.
+     (Adjust 80px to match your navbar's exact height) */
+  scroll-padding-top: 80px;
+}
 body {
   margin: 0;
   padding: 0;
   font-family: system-ui, sans-serif;
   line-height: 1.5;
+  
+  /* Add transitions for a smooth theme change */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* ------------------- */
-/* --- Light Mode (Default) --- */
-/* ------------------- */
+
+/* 2. CSS Variable Definitions (Default: Light Mode) */
+:root {
+  /* Page & Navbar Colors */
+  --page-bg: #ffffff;
+  --page-text: #222222;
+  --navbar-bg: #f8f8f8;
+  --navbar-border: #eaeaea;
+  --navbar-link-text: #333;
+
+  /* Toggle Switch Colors (Light State) */
+  --toggle-bg-light: #ccc;
+  --toggle-bg-dark: #888;
+  --toggle-thumb-light: white;
+  --toggle-thumb-dark: white;
+  --toggle-icon-light: #444;
+  --toggle-icon-dark: #666;
+  --toggle-border: #888; /* Clearer border for light mode */
+
+  /* ADD THESE */
+  --button-primary-bg: #0070f3; /* A bright, modern blue */
+  --button-primary-text: #ffffff;
+
+  --button-pulse-color: rgba(0, 112, 243, 0.7);
+}
+
+
+/* 3. Dark Mode Overrides */
+/* These variables are used when <html class="dark"> */
+.dark {
+  /* Page & Navbar Colors */
+  --page-bg: #1a202c;
+  --page-text: #e2e8f0;
+  --navbar-bg: #2d3748;
+  --navbar-border: #4a5568;
+  --navbar-link-text: #e2e8f0;
+
+  /* Toggle Switch Colors (Dark State) */
+  --toggle-bg-light: #555;
+  --toggle-bg-dark: #333;
+  --toggle-thumb-light: #ccc;
+  --toggle-thumb-dark: #f0c978; /* Golden thumb for dark mode */
+  --toggle-icon-light: #888;
+  --toggle-icon-dark: #222;
+  --toggle-border: #999; /* Clearer border for dark mode */
+
+  /* ADD THESE */
+  --button-primary-bg: #00aaff; /* A lighter blue for dark mode */
+  --button-primary-text: #1a202c; /* Dark text for contrast */
+
+  --button-pulse-color: rgba(0, 170, 255, 0.7);
+}
+
+
+/* 4. Apply Variables to Elements */
+/* These rules apply once and use the variables from above */
 
 body {
-  background-color: #ffffff;
-  color: #222222;
+  background-color: var(--page-bg);
+  color: var(--page-text);
 }
 
 nav {
-  background-color: #f8f8f8;
-  border-bottom: 1px solid #eaeaea;
+  background-color: var(--navbar-bg);
+  border-bottom: 1px solid var(--navbar-border);
+  /* Add transitions for nav as well */
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 nav a {
-  color: #333;
+  color: var(--navbar-link-text);
+  transition: color 0.3s ease;
 }
 
-/* ------------------- */
-/* --- Dark Mode --- */
-/* ------------------- */
+/* NOTE: We don't need the old ".dark button" style anymore.
+  Your new ThemeToggle component styles itself using the 
+  --toggle-* variables defined above.
+*/
 
-/* These styles apply when <html class="dark"> */
-.dark body {
-  background-color: #1a202c; /* Dark gray background */
-  color: #e2e8f0; /* Light gray text */
+/* ------------------------------------- */
+/* --- Social Sidebar Styles --- */
+/* ------------------------------------- */
+
+/* Style for the links inside the sidebar */
+#social-sidebar a {
+  /* Use the page text color, so it switches with the theme! */
+  color: var(--page-text);
+  transition: all 0.2s ease-in-out;
 }
 
-.dark nav {
-  background-color: #2d3748; /* Darker navbar */
-  border-bottom: 1px solid #4a5568;
+/* Style for when you hover over the icons */
+#social-sidebar a:hover {
+  color: #0077b5; /* A nice "link" blue */
+  transform: scale(1.2); /* Makes the icon slightly larger */
 }
 
-.dark nav a {
-  color: #e2e8f0; /* Light text for links */
-}
-
-/* You can also style the button */
-.dark button {
-  background-color: #4a5568;
-  color: #e2e8f0;
-  border-color: #718096;
+/* Optional: Different hover color for dark mode */
+.dark #social-sidebar a:hover {
+  color: #00aaff; /* A lighter blue for dark mode */
 }
